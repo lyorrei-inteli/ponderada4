@@ -22,7 +22,7 @@ class VideoUploader:
 
     def upload_image(self, name):
         supabase.storage.from_(bucket_name).upload(name, name)
-        print("Image uploaded successfully")
+        print("File uploaded successfully")
 
     def delete_file(self, file_path):
         try:
@@ -37,9 +37,9 @@ class VideoUploader:
         fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # Use mp4v codec for .mp4 file
         current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         output_file_name = "output_{}.mp4".format(current_time)  # Change file extension to .mp4
-        self.output_file = cv2.VideoWriter(output_file_name, fourcc, 20.0, (640, 480))
+        self.output_file = cv2.VideoWriter(output_file_name, fourcc, 27.0, (1920, 1080))
 
-        print("Recording started. Press 'q' to stop recording and upload it.")
+        print("Recording started.")
 
         start_time = time.time()
         duration = 5
@@ -49,6 +49,7 @@ class VideoUploader:
             ret, frame = self.camera.read()
             if not ret:
                 break
+
             self.output_file.write(frame)
 
             elapsed_time = time.time() - start_time
